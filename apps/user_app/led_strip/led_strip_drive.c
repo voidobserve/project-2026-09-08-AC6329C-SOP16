@@ -6,9 +6,6 @@
 
 #include "asm/mcpwm.h" // mcpwm的接口
 
-
- 
-
 #define MIC_PIN IO_PORTA_08
 #define MIC_CH  AD_CH_PA8
 
@@ -51,9 +48,7 @@ void led_gpio_init(void)
     gpio_set_die(_B_PIN, 1);
     gpio_direction_output(_B_PIN, 0);
 }
- 
 
-#define PWM_FEQ (u32)94000
 void led_pwm_init(void)
 {
     // R

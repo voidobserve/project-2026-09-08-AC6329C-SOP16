@@ -144,6 +144,8 @@
 					<Add directory="../../../user_app" />
 					<Add directory="../../../../include_lib/btstack/le" />
 					<Add directory="../../../user_app/user_ble_notify" />
+					<Add directory="../../../user_app/motor" />
+					<Add directory="../../../user_app/acc_det" />
 				</Compiler>
 				<Linker>
 					<Add option="-flto" />
@@ -891,6 +893,10 @@
 		<Unit filename="../../../common/update/update.c">
 			<Option compilerVar="CC" />
 		</Unit>
+		<Unit filename="../../../user_app/acc_det/acc_det.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../user_app/acc_det/acc_det.h" />
 		<Unit filename="../../../user_app/hardware/hardware.c">
 			<Option compilerVar="CC" />
 		</Unit>
@@ -915,26 +921,18 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../../../user_app/led_strip/paint_tool.h" />
+		<Unit filename="../../../user_app/motor/motor.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="../../../user_app/motor/motor.h" />
 		<Unit filename="../../../user_app/one_wire/one_wire.h" />
 		<Unit filename="../../../user_app/protocol/dp_data_tran.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="../../../user_app/protocol/dp_data_tran.h" />
-		<Unit filename="../../../user_app/rf24g_key/rf24g_app.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="../../../user_app/rf24g_key/rf24g_app.h" />
-		<Unit filename="../../../user_app/rf24g_key/rf24g_key.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="../../../user_app/rf24g_key/rf24g_key.h" />
-		<Unit filename="../../../user_app/rf433_key/rf433_key.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="../../../user_app/rf433_key/rf433_key.h" />
-		<Unit filename="../../../user_app/rf433_key/rf433_learn.c">
-			<Option compilerVar="CC" />
-		</Unit>
 		<Unit filename="../../../user_app/rf433_key/rf433_learn.h" />
 		<Unit filename="../../../user_app/save_flash/save_flash.c">
 			<Option compilerVar="CC" />

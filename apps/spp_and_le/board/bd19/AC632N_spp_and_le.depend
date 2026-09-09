@@ -84205,7 +84205,7 @@
 1766218876 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\rf433_key\rf433_learn.h
 	"includes.h"
 
-1788858749 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\led_strip\led_strip_drive.c
+1788916228 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\led_strip\led_strip_drive.c
 	"led_strip_sys.h"
 	"led_strip_drive.h"
 	"asm/adc_api.h"
@@ -84249,7 +84249,7 @@
 	"led_strip_voice.h"
 	"user_config.h"
 
-1788861184 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\protocol\dp_data_tran.c
+1788923020 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\protocol\dp_data_tran.c
 	"cpu.h"
 	"led_strip_sys.h"
 	"paint_tool.h"
@@ -85771,7 +85771,7 @@
 	"../../../../apps/user_app/rf433_key/rf433_key.h"
 	"uart_update.h"
 
-1788861306 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\spp_and_le\app_main.c
+1788947181 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\spp_and_le\app_main.c
 	"system/includes.h"
 	"app_config.h"
 	"app_action.h"
@@ -85783,13 +85783,12 @@
 	"asm/charge.h"
 	"jl_kws/jl_kws_api.h"
 	"debug.h"
-	"../../../apps/user_app/rf433_key/rf433_key.h"
-	"../../../apps/user_app/rf433_key/rf433_learn.h"
-	"../../../apps/user_app/led_strip/led_strip_sys.h"
-	"../../../apps/user_app/led_strip/led_strand_effect.h"
+	"led_strip_sys.h"
+	"led_strand_effect.h"
 	"../../../apps/user_app/ws2812-fx-lib/WS2812FX_C/ws2812fx_effect.h"
 	"../../../apps/user_app/ws2812-fx-lib/WS2812FX_C/WS2812FX.h"
-	"rf24g_key.h"
+	"acc_det.h"
+	"motor.h"
 	"user_config.h"
 	"user_ble_notify.h"
 	"led_strip_drive.h"
@@ -85798,4 +85797,18 @@
 1719186884 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\common\jl_kws\jl_kws_api.h
 
 1788859140 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\user_config.h
+
+1788947181 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\motor\motor.h
+	"typedef.h"
+
+1788943420 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\motor\motor.c
+	"motor.h"
+	"includes.h"
+
+1788939198 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\acc_det\acc_det.c
+	"acc_det.h"
+	"includes.h"
+
+1788939223 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\acc_det\acc_det.h
+	"typedef.h"
 

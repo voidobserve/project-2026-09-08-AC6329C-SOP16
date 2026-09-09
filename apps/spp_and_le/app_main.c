@@ -28,16 +28,13 @@
 #define LOG_CLI_ENABLE
 #include "debug.h"
 
-// #include "../../../apps/user_app/rf24g_key/rf24g_key.h"
-// #include "../../../apps/user_app/one_wire/one_wire.h"
-#include "../../../apps/user_app/rf433_key/rf433_key.h"
-#include "../../../apps/user_app/rf433_key/rf433_learn.h"
-#include "../../../apps/user_app/led_strip/led_strip_sys.h"
-#include "../../../apps/user_app/led_strip/led_strand_effect.h"
+#include "led_strip_sys.h"
+#include "led_strand_effect.h"
 #include "../../../apps/user_app/ws2812-fx-lib/WS2812FX_C/ws2812fx_effect.h"
 #include "../../../apps/user_app/ws2812-fx-lib/WS2812FX_C/WS2812FX.h"
 
-#include "rf24g_key.h"
+#include "acc_det.h"
+#include "motor.h"
 #include "user_config.h"
 #include "user_ble_notify.h"
 
@@ -357,13 +354,74 @@ __initcall(user_timer_init);
 
 void user_main_task(void)
 {
+    u32 val = 0;
+    u8 acc_cur = 0;
+    u8 acc_last = 0;
+    u8 acc_pending = 0;
+
+#if 0
     read_flash_device_status_init();
     full_color_init();
+#endif
+
+    acc_last = acc_is_det();
+    if (acc_last) {
+        motor_set_dir(MOTOR_DIR_RISE);
+    } else {
+        motor_set_dir(MOTOR_DIR_FALL);
+    }
 
     while (1) {
+        acc_cur = acc_is_det();
+        val = adc_get_value(AD_CH_PA7);
 
+        // 阈值：大于 RUN 阈值表示电机正在转动，小于 STOP 阈值表示已经卡住
+        if (val > MOTOR_ADC_RUN_THRESHOLD) {
+            // 电机在转动，脉冲幅值越高越说明有输出
+        } else if (val < MOTOR_ADC_STOP_THRESHOLD) {
+            // 电机卡住：先停电机，再把对应状态置位为结束态
+            if (motor_sta == MOTOR_STA_RISING) {
+                motor_stop();
+                motor_sta = MOTOR_STA_RISE_END;
+            } else if (motor_sta == MOTOR_STA_FALLING) {
+                motor_stop();
+                motor_sta = MOTOR_STA_FALL_END;
+            }
+        }
+
+// USER_TO_DO 从这里开始检查
+
+        // 当电机还在转动时，如果 ACC 信号变化，先记住新的目标状态，等电机停下来以后再处理
+        if ((motor_sta == MOTOR_STA_RISING || motor_sta == MOTOR_STA_FALLING) &&
+            (acc_cur != acc_last)) {
+            acc_pending = 1;
+        }
+
+        // 仅在电机已停下的时候，才允许处理新方向命令；这里避免上升/下降同时运行
+        if (motor_sta == MOTOR_STA_RISE_END || motor_sta == MOTOR_STA_FALL_END ||
+            motor_sta == MOTOR_STA_NONE) {
+            if (acc_pending) {
+                acc_last = acc_cur;
+                acc_pending = 0;
+                if (acc_cur) {
+                    motor_set_dir(MOTOR_DIR_RISE);
+                } else {
+                    motor_set_dir(MOTOR_DIR_FALL);
+                }
+            } else if (acc_cur != acc_last) {
+                acc_last = acc_cur;
+                if (acc_cur) {
+                    motor_set_dir(MOTOR_DIR_RISE);
+                } else {
+                    motor_set_dir(MOTOR_DIR_FALL);
+                }
+            }
+        }
+
+#if 0
         save_user_data_time_count_down();
         save_user_data_handle();
+#endif
 
         os_time_dly(1);
     }
@@ -443,10 +501,17 @@ void user_init(void)
 {
     led_gpio_init(); // 七彩灯输出口
     led_pwm_init();  // 七彩灯输出口对应的pwm
+    motor_init();
+    acc_det_pin_init();
+
+    // 测试时使用，全程打开电机电源
+    motor_pwr_on();
+
+    // gpio_set_output_value(MOTOR_FALL_PIN, MOTOR_ON_LEV);
 
     sys_s_hi_timer_add(NULL, WS2812_circle_task, 10); // 10ms
 
-    task_create(motor_task, NULL, "motor_task");
+    // task_create(motor_task, NULL, "motor_task");
     task_create(ble_notify_task, NULL, "usr_ble_task");
     task_create(user_msg_handle_task, NULL, "msg_task");
     /*
