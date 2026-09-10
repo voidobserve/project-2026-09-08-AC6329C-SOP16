@@ -16,12 +16,8 @@
 #define MOTOR_PWR_ON_LEV  1 // 控制电机电源开启对应的引脚电平
 #define MOTOR_PWR_OFF_LEV (!(MOTOR_PWR_ON_LEV))
 
-#define MOTOR_DIR_RISE  1
-#define MOTOR_DIR_FALL  0
-
-// ADC 的脉冲幅值阈值：超过 RUN 阈值说明电机在转动，低于 STOP 阈值说明电机已经卡住
-#define MOTOR_ADC_RUN_THRESHOLD   100
-#define MOTOR_ADC_STOP_THRESHOLD  50
+#define MOTOR_DIR_RISE 1
+#define MOTOR_DIR_FALL 0
 
 enum
 {

@@ -543,27 +543,17 @@ static int multi_make_set_adv_data(void)
 
     // 广播头
     u8 index = 0;
-    u8 info[14]; // 客户机型数据 
+    u8 info[14]; // 客户机型数据
 
     // ilamp 上使用的广播头
     info[index++] = 'Z';
     info[index++] = 'D';
     info[index++] = 0x00; //
-    info[index++] = 0x01;
-    info[index++] = 0x04;
-    info[index++] = 0x89;
-    info[index++] = 0x00;
-    info[index++] = 0x01;
+    info[index++] = 0xD9;
+    info[index++] = 0x03;
+    info[index++] = 0x86;
+    info[index++] = 0x07;
 
-    // 世纪光电的app使用的广播头
-    // info[index++] = 'Z';
-    // info[index++] = 'D';
-    // info[index++] = 0x00; //
-    // info[index++] = 0x01;
-    // info[index++] = 0x01;
-    // info[index++] = 0xE9;
-    // info[index++] = 0x00;
-    // info[index++] = 0x00;
     le_controller_get_mac(&info[index]); // 获取ble的蓝牙public地址
     offset += make_eir_packet_data(&buf[offset], offset,
                                    HCI_EIR_DATATYPE_MANUFACTURER_SPECIFIC_DATA,

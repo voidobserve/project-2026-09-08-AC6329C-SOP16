@@ -23,8 +23,7 @@
 #include "debug.h"
 
 #define AT_UART_PORT_ID        3  // wakeup_param 里面的port id
-
-#include "../../../../apps/user_app/rf433_key/rf433_key.h" // rf433  
+  
 
 void board_power_init(void);
 

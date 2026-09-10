@@ -5,7 +5,6 @@
 #include "led_strand_effect.h"
 #include "led_strip_drive.h"
 
-#include "../../../apps/user_app/rf433_key/rf433_learn.h"
 
 #pragma pack(1)
 typedef struct

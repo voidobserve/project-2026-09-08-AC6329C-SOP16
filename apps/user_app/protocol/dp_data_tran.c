@@ -241,16 +241,18 @@ void zd_fb_2_app(u8 *p, u8 len)
 {
     uint8_t fc_buffer[30]; // 发送缓存
     // memcpy(fc_buffer, Ble_Addr, 6);
-    // memcpy(fc_buffer + 6, p, len); // 跳过前6个字节的地址
+    // 跳过前6个字节的地址 (原本前六个字节用于存放蓝牙地址，现在没有用到)
+    memcpy(fc_buffer + 6, p, len);
 
-    memcpy(fc_buffer, p, len); //
+    // memcpy(fc_buffer, p, len); //
     // ble_comm_att_send_data(
     //     ZD_HCI_handle,
     //     ATT_CHARACTERISTIC_fff1_01_VALUE_HANDLE,
     //     fc_buffer,
     //     len + 6,
     //     ATT_OP_AUTO_READ_CCC);
-    user_ble_notify_obj.param_put(fc_buffer, len);
+    // user_ble_notify_obj.param_put(fc_buffer, len);
+    user_ble_notify_obj.param_put(fc_buffer, len + 6);
 }
 
 /*********************************************************
@@ -423,7 +425,7 @@ void parse_zd_data(unsigned char *LedCommand, u8 len)
     volatile u8 send_buf_len = 0; // 存放待发送的指令长度
     // const u8 send_addr_len = 6;        // 存放待发送的地址的长度
     const u8 send_data_prefix_len =
-        3; // 存放待发送的指令的前缀长度(0x01、0xE9、0x00共3bytes)
+        6; // 存放待发送的指令的前缀长度 (目前是存蓝牙地址)
     volatile uint8_t Send_buffer[20]; // 发送缓存
     // memcpy(Send_buffer, Ble_Addr, 6);
     // send_buf_len += 6;
@@ -672,11 +674,11 @@ void parse_zd_data(unsigned char *LedCommand, u8 len)
             } break;
                 // ================================
             case 1: {
-                colorful_lights_set_static_color(GREEN);
+                colorful_lights_set_static_color(BLUE);
             } break;
                 // ================================
             case 2: {
-                colorful_lights_set_static_color(BLUE);
+                colorful_lights_set_static_color(GREEN);
             } break;
                 // ================================
             case 3: {
@@ -692,7 +694,7 @@ void parse_zd_data(unsigned char *LedCommand, u8 len)
             } break;
                 // ================================
             case 6: {
-                colorful_lights_set_static_color(PURE_WHITE);
+                colorful_lights_set_static_color(WHITE);
             } break;
             }
         }

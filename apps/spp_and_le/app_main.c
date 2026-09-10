@@ -77,7 +77,7 @@ const struct task_info task_info_table[] = {
     {"hilink_task", 2, 0, 1024, 0}, // 定义线程 hilink任务调度
 #endif
 
-    {"led_task", 2, 0, 512, 512}, // 灯光
+    {"usr_task", 2, 0, 512, 512}, //
     {"msg_task", 3, 0, 256, 256}, // 用户消息处理线程
     {"motor_task", 3, 0, 128, 128},
     {"usr_ble_task", 3, 0, 128, 128},
@@ -354,71 +354,117 @@ __initcall(user_timer_init);
 
 void user_main_task(void)
 {
-    u32 val = 0;
-    u8 acc_cur = 0;
-    u8 acc_last = 0;
-    u8 acc_pending = 0;
+    volatile u32 val = 0;
+    volatile u8 acc_cur = 0;
+    // volatile u8 acc_last = 0;
+    // volatile u8 acc_pending = 0; // 标志位，表示 acc 信号有变化
+    volatile u16 motor_run_cnt = 0;
+    volatile u8 motor_stall_cnt = 0;
 
-#if 0
+    static volatile u16 cnt = 0;
+
+#if 1
     read_flash_device_status_init();
     full_color_init();
 #endif
 
-    acc_last = acc_is_det();
-    if (acc_last) {
-        motor_set_dir(MOTOR_DIR_RISE);
-    } else {
-        motor_set_dir(MOTOR_DIR_FALL);
-    }
-
     while (1) {
+        // acc_last = acc_cur;
         acc_cur = acc_is_det();
         val = adc_get_value(AD_CH_PA7);
+#if USER_DEBUG_ENABLE
 
-        // 阈值：大于 RUN 阈值表示电机正在转动，小于 STOP 阈值表示已经卡住
-        if (val > MOTOR_ADC_RUN_THRESHOLD) {
-            // 电机在转动，脉冲幅值越高越说明有输出
-        } else if (val < MOTOR_ADC_STOP_THRESHOLD) {
-            // 电机卡住：先停电机，再把对应状态置位为结束态
-            if (motor_sta == MOTOR_STA_RISING) {
-                motor_stop();
-                motor_sta = MOTOR_STA_RISE_END;
-            } else if (motor_sta == MOTOR_STA_FALLING) {
-                motor_stop();
-                motor_sta = MOTOR_STA_FALL_END;
+        // cnt++;
+        // if (cnt >= 2000 / 10) {
+        //     cnt = 0;
+        // printf("val == %lu\n", val);
+        // printf("acc_cur == %u\n", (u16)acc_cur);
+        // }
+
+#endif
+
+#if 1
+
+        if (motor_sta == MOTOR_STA_RISING || motor_sta == MOTOR_STA_FALLING) {
+
+            // 连续 8 次检测到 val <= 10，判定电机堵转；只要检测到一次 val > 500，清空累计次数
+            if (val > 500) {
+                motor_stall_cnt = 0;
+            } else if (val <= 10) {
+                motor_stall_cnt++;
+                if (motor_stall_cnt >= 8) {
+                    motor_stall_cnt = 0;
+#if USER_DEBUG_ENABLE
+                    printf("motor stall\n");
+#endif
+                    if (motor_sta == MOTOR_STA_RISING) {
+                        motor_stop();
+                        motor_sta = MOTOR_STA_RISE_END;
+                    } else if (motor_sta == MOTOR_STA_FALLING) {
+                        motor_stop();
+                        motor_sta = MOTOR_STA_FALL_END;
+
+                        // 电机下降过程中堵转，关闭七彩灯
+                        colorful_light_close();
+                        fb_led_on_off_state(); // 与app反馈七彩灯的开关状态
+                    }
+
+                    motor_run_cnt = 0;
+                }
             }
+
+            motor_run_cnt++;
+            if (motor_run_cnt >= 4000 / 10) {
+                motor_run_cnt = 0;
+                motor_stop();
+
+                if (motor_sta == MOTOR_STA_RISING) {
+                    motor_sta = MOTOR_STA_RISE_END;
+#if USER_DEBUG_ENABLE
+                    // printf("motor_sta == MOTOR_STA_RISE_END\n");
+#endif
+                } else if (motor_sta == MOTOR_STA_FALLING) {
+                    motor_sta = MOTOR_STA_FALL_END;
+#if USER_DEBUG_ENABLE
+                    // printf("motor_sta == MOTOR_STA_FALL_END\n");
+#endif
+
+                    // 电机下降过程中超时，关闭七彩灯
+                    colorful_light_close();
+                    fb_led_on_off_state(); // 与app反馈七彩灯的开关状态
+                }
+            }
+        } else {
+            // 电机停下时，清空电机运行计数值
+            motor_run_cnt = 0;
         }
 
-// USER_TO_DO 从这里开始检查
-
-        // 当电机还在转动时，如果 ACC 信号变化，先记住新的目标状态，等电机停下来以后再处理
-        if ((motor_sta == MOTOR_STA_RISING || motor_sta == MOTOR_STA_FALLING) &&
-            (acc_cur != acc_last)) {
-            acc_pending = 1;
-        }
-
+        // 仅在 ACC 电平发生跳变时处理一次方向命令；避免同一状态在主循环中反复重打方向
+        // if (acc_cur != acc_last) {
         // 仅在电机已停下的时候，才允许处理新方向命令；这里避免上升/下降同时运行
-        if (motor_sta == MOTOR_STA_RISE_END || motor_sta == MOTOR_STA_FALL_END ||
-            motor_sta == MOTOR_STA_NONE) {
-            if (acc_pending) {
-                acc_last = acc_cur;
-                acc_pending = 0;
-                if (acc_cur) {
-                    motor_set_dir(MOTOR_DIR_RISE);
-                } else {
-                    motor_set_dir(MOTOR_DIR_FALL);
-                }
-            } else if (acc_cur != acc_last) {
-                acc_last = acc_cur;
-                if (acc_cur) {
-                    motor_set_dir(MOTOR_DIR_RISE);
-                } else {
-                    motor_set_dir(MOTOR_DIR_FALL);
-                }
-            }
+        if (acc_cur && ((motor_sta == MOTOR_STA_NONE) ||
+                        (motor_sta == MOTOR_STA_FALL_END))) {
+            motor_set_dir(MOTOR_DIR_RISE);
+#if USER_DEBUG_ENABLE
+            // printf("acc_cur == 1\n");
+            // printf("motor_sta == MOTOR_DIR_RISE\n");
+#endif
+            colorful_light_open(); //
+            fb_led_on_off_state(); // 与app反馈七彩灯的开关状态
+        } else if ((0 == acc_cur) && ((motor_sta == MOTOR_STA_NONE) ||
+                                      (motor_sta == MOTOR_STA_RISE_END))) {
+            motor_set_dir(MOTOR_DIR_FALL);
+#if USER_DEBUG_ENABLE
+            // printf("acc_cur == 0\n");
+            // printf("motor_sta == MOTOR_DIR_FALL\n");
+#endif
         }
+        // }
+#endif
 
-#if 0
+        // USER_TO_DO 电机刚升起时要打开灯光，电机降下并停止时，关闭灯光
+
+#if 1
         save_user_data_time_count_down();
         save_user_data_handle();
 #endif
@@ -504,19 +550,15 @@ void user_init(void)
     motor_init();
     acc_det_pin_init();
 
-    // 测试时使用，全程打开电机电源
+    // TEST ONLY 测试时使用，全程打开电机电源
     motor_pwr_on();
-
-    // gpio_set_output_value(MOTOR_FALL_PIN, MOTOR_ON_LEV);
+    // TEST ONLY
+    // motor_set_dir(MOTOR_DIR_RISE);
 
     sys_s_hi_timer_add(NULL, WS2812_circle_task, 10); // 10ms
 
     // task_create(motor_task, NULL, "motor_task");
     task_create(ble_notify_task, NULL, "usr_ble_task");
     task_create(user_msg_handle_task, NULL, "msg_task");
-    /*
-        这里要放到最后，防止调用 soft_turn_on_the_light() 给线程发送消息时，
-        接收消息的线程没有创建，导致收不到消息，最后一上电电机会不工作
-    */
-    task_create(user_main_task, NULL, "led_task");
+    task_create(user_main_task, NULL, "usr_task");
 }

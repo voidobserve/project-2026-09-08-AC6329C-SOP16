@@ -82089,7 +82089,7 @@
 	"asm/irflt.h"
 	"app_config.h"
 
-1779508481 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\common\device\key\key_driver.c
+1789018726 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\common\device\key\key_driver.c
 	"device/key_driver.h"
 	"system/event.h"
 	"system/init.h"
@@ -82106,8 +82106,6 @@
 	"tone_player.h"
 	"irSensor/ir_manage.h"
 	"debug.h"
-	"rf24g_key.h"
-	"rf433_key.h"
 	"asm/ctmu.h"
 
 1719187047 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\include_lib\system\device\tent600_key.h
@@ -83206,7 +83204,7 @@
 	"mbedtls/platform.h"
 	<stdlib.h>
 
-1783587498 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\common\third_party_profile\jieli\gatt_common\le_gatt_client.c
+1789018817 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\common\third_party_profile\jieli\gatt_common\le_gatt_client.c
 	"system/app_core.h"
 	"system/includes.h"
 	"app_config.h"
@@ -83223,7 +83221,6 @@
 	"le_gatt_common.h"
 	"ble/hci_ll.h"
 	"debug.h"
-	"rf24g_key.h"
 
 1719187029 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\include_lib\btstack\btstack_task.h
 
@@ -84184,7 +84181,7 @@
 1788859864 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\one_wire\one_wire.h
 	"system/includes.h"
 
-1788853893 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\led_strip\led_strand_effect.c
+1789027915 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\led_strip\led_strand_effect.c
 	"system/includes.h"
 	"led_strand_effect.h"
 	"WS2812FX.H"
@@ -84193,8 +84190,7 @@
 	"led_strip_drive.h"
 	"app_main.h"
 	"asm/mcpwm.h"
-	"../../../apps/user_app/ws2812-fx-lib/WS2812FX_C/WS2812FX.H"
-	"../../../apps/user_app/rf433_key/rf433_learn.h"
+	"WS2812FX.H"
 
 1769658245 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\ws2812-fx-lib\ws2812fx_c\ws2812fx_effect.h
 
@@ -84249,7 +84245,7 @@
 	"led_strip_voice.h"
 	"user_config.h"
 
-1788923020 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\protocol\dp_data_tran.c
+1789028059 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\protocol\dp_data_tran.c
 	"cpu.h"
 	"led_strip_sys.h"
 	"paint_tool.h"
@@ -84280,10 +84276,9 @@
 	"ws2812fx_effect.h"
 	"user_config.h"
 
-1763775065 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\save_flash\save_flash.h
+1789018844 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\save_flash\save_flash.h
 	"led_strand_effect.h"
 	"led_strip_drive.h"
-	"../../../apps/user_app/rf433_key/rf433_learn.h"
 
 1788861188 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\rf433_key\rf433_key.c
 	"rf433_key.h"
@@ -84299,12 +84294,10 @@
 	"rf433_key.h"
 	"../../../apps/user_app/led_strip/led_strip_sys.h"
 
-1788860228 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\save_flash\save_flash.c
+1789018857 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\save_flash\save_flash.c
 	"system/includes.h"
 	"syscfg_id.h"
 	"save_flash.h"
-	"../../../apps/user_app/rf433_key/rf433_key.h"
-	"../../../apps/user_app/rf433_key/rf433_learn.h"
 
 1777083486 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\user_ble_notify\user_ble_notify.c
 	"user_ble_notify.h"
@@ -85265,7 +85258,7 @@
 	"le_client_demo.h"
 	"gatt_common/le_gatt_common.h"
 
-1788857307 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\spp_and_le\examples\multi_conn\ble_multi_peripheral.c
+1789027762 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\spp_and_le\examples\multi_conn\ble_multi_peripheral.c
 	"system/app_core.h"
 	"system/includes.h"
 	"app_config.h"
@@ -85755,7 +85748,7 @@
 	"asm/power/p33.h"
 	"debug.h"
 
-1763601630 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\spp_and_le\board\bd19\board_ac632n_demo.c
+1789018893 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\spp_and_le\board\bd19\board_ac632n_demo.c
 	"app_config.h"
 	"system/includes.h"
 	"device/key_driver.h"
@@ -85768,10 +85761,9 @@
 	"usb/otg.h"
 	"norflash.h"
 	"debug.h"
-	"../../../../apps/user_app/rf433_key/rf433_key.h"
 	"uart_update.h"
 
-1788947181 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\spp_and_le\app_main.c
+1789031790 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\spp_and_le\app_main.c
 	"system/includes.h"
 	"app_config.h"
 	"app_action.h"
@@ -85796,16 +85788,17 @@
 
 1719186884 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\common\jl_kws\jl_kws_api.h
 
-1788859140 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\user_config.h
+1789031892 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\user_config.h
 
-1788947181 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\motor\motor.h
+1789031762 d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\motor\motor.h
 	"typedef.h"
 
-1788943420 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\motor\motor.c
+1789029592 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\motor\motor.c
 	"motor.h"
 	"includes.h"
+	"user_config.h"
 
-1788939198 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\acc_det\acc_det.c
+1789007009 source:d:\project\2026-09-08-ÆÕÉù-rgbwµÆ¿Ø°å-ac6329c-sop16\code\project-2026-09-08-ac6329c-sop16\apps\user_app\acc_det\acc_det.c
 	"acc_det.h"
 	"includes.h"
 
